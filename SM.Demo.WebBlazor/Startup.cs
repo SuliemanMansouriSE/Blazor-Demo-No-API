@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MudBlazor.Services;
 using SM.Demo.Infrastructure;
 using SM.Demo.Services;
 using SM.Demo.WebBlazor.Data;
@@ -30,6 +31,7 @@ namespace SM.Demo.WebBlazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddMudServices();
             services.AddSingleton<WeatherForecastService>();
 
             services.AddDbContext<ApplicationDbContext>(option => 

@@ -1,37 +1,11 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">SM.Demo.WebBlazor</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<MudNavMenu Class="demo-navmenu" Style="height: 300px;">
+    <MudNavLink Href="/AuthorComponents/AuthorsList" Icon="@Icons.Material.Filled.Dashboard">Authors</MudNavLink>
+    <MudNavLink Href="/AcademicProgramComponents/AcademicPrograms" Icon="@Icons.Material.Filled.LibraryBooks">Academic Programs</MudNavLink>
+    <MudNavLink Href="/DepartmentComponents/Departments" Icon="@Icons.Material.Filled.Book">Departments</MudNavLink>
+    <MudNavGroup Title="Course Specifications" Icon="@Icons.Material.Filled.Settings" Expanded="true">
+        <MudNavLink Href="/CourseComponents/Courses" Icon="@Icons.Material.Filled.People">Courses</MudNavLink>
+        <MudNavLink Href="/AssessmentMethodComponents/AssessmentMethods" Icon="@Icons.Material.Filled.PlaylistAddCheck">Assessment Methods</MudNavLink>
+        <MudNavLink Href="/TeachingStrategyComponents/TeachingStrategies" Icon="@Icons.Material.Filled.Analytics">Teaching Strategies</MudNavLink>
+    </MudNavGroup>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+</MudNavMenu>

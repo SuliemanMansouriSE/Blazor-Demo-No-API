@@ -1,8 +1,10 @@
-﻿using SM.Demo.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SM.Demo.Domain.Entities;
 using SM.Demo.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SM.Demo.Services
 {
@@ -14,42 +16,48 @@ namespace SM.Demo.Services
         {
             _dbContext = dbContext;
         }
-        public void Delete(Author author)
+
+        public async Task Delete(Guid id)
         {
-            var tmp = _dbContext.Authors.FirstOrDefault(x => x.Id == author.Id);
+            var tmp = _dbContext.Authors.FirstOrDefault(x => x.Id == id);
             if (tmp != null)
             {
                 _dbContext.Authors.Remove(tmp);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        
 
-        public ICollection<Author> GetAll()
+
+        public async Task<ICollection<Author>> GetAll()
         {
-            return _dbContext.Authors.ToList();
+            return await _dbContext.Authors.ToListAsync();
         }
 
-        public ICollection<Author> GetByName(string name)
+        public async Task<Author> GetById(Guid guid)
         {
-            return _dbContext.Authors.Where(x => x.Name.Contains(name)).ToList();
+            return await _dbContext.Authors.Where(x => x.Id == guid).FirstOrDefaultAsync();
         }
 
-        public Author Save(Author book)
+        public async Task<ICollection<Author>> GetByName(string name)
+        {
+            return await _dbContext.Authors.Where(x => x.Name.Contains(name)).ToListAsync();
+        }
+
+        public async Task<Author> Save(Author book)
         {
             _dbContext.Authors.Add(book);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return book;
         }
 
-        public Author Update(Author book)
+        public async Task<Author> Update(Author book)
         {
             var tmp = _dbContext.Authors.FirstOrDefault(x => x.Id == book.Id);
             if (tmp != null)
             {
                 _dbContext.Entry(tmp).CurrentValues.SetValues(book);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return book;
             }
             return null;

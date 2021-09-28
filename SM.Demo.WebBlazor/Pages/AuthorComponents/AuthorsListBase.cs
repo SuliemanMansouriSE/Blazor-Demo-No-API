@@ -14,13 +14,24 @@ namespace SM.Demo.WebBlazor.Pages.AuthorComponents
         [Inject]
         public IAuthorService AuthorService { get; set; }
 
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
 
-        IEnumerable<Author> Authors { get; set; }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
-        protected override void OnInitialized()
+        
+        public IEnumerable<Author> Authors { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            Authors = AuthorService.GetAll();
+            Authors = await AuthorService.GetAll();
+            
+        }
+
+        protected async Task HandleDeleteAsync(Guid Id)
+        {
+            await AuthorService.Delete(Id);
+            NavigationManager.NavigateTo($"/AuthorComponents/AuthorsList", true);
         }
 
     }

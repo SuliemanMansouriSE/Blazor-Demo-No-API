@@ -1,15 +1,67 @@
 ﻿@page "/AuthorComponents/Author"
-@inherits AuthorComponentBase 
+@inherits AuthorComponentBase
 
 <h3>AuthorComponent</h3>
 
-<div>
+@if (Author == null)
+{
+    <div Class="d-flex justify-center align-center ma-auto">
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <EditForm Model="@Author">
 
-<table>
-    <tr>
-        <td>
+        <MudTabs Elevation="1">
+            <MudTabPanel Text="Information">
+                <MudCard Outlined="true">
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h5">@PageHeaderText</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+
+                    <MudCardContent>
+                        <MudGrid>
+                            
+                            
+                            <MudItem xs="6">
+                                <MudTextField Label="Name" @bind-Value="@Author.Name" />
+                            </MudItem>
+                            <MudItem xs="6">
+                                <MudTextField Label="Date of Birth" @bind-Value="@Author.DOB" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudTextField Label="Email" @bind-Value="@Author.Email" Lines="3" />
+                            </MudItem>
+                            
+                        </MudGrid>
+                    </MudCardContent>
+
+
+                    <MudCardActions>
+
+                    </MudCardActions>
+                </MudCard>
+            </MudTabPanel>
             
-        </td>
-    </tr>
-</table>
-</div>
+        </MudTabs>
+
+        <MudButton ButtonType="ButtonType.Submit"
+                   Variant="Variant.Outlined"
+                   Color="Color.Primary"
+                   OnClick="HandleSubmitAsync">Submit</MudButton>
+        @if (Id != null)
+        {
+
+            <MudButton ButtonType="ButtonType.Button"
+                       Variant="Variant.Outlined"
+                       Color="Color.Error"
+                       OnClick="HandleDeleteAsync">Delete</MudButton>
+        }
+
+    </EditForm>
+
+
+}

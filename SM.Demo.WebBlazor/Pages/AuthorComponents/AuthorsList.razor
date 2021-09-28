@@ -2,3 +2,49 @@
 @inherits AuthorsListBase
 
 <h3>AuthorsList</h3>
+@if (Authors == null)
+{
+    <div class="d-flex oi-justify-center oi-align-center ma-auto">
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+    </div>
+}
+else
+{
+    <div Class="d-flex justify-end mt-2">
+        <MudButton Class="pa-2 mx-2"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   Color="Color.Primary"
+                   Variant="Variant.Outlined"
+                   Link="@($"/AuthorComponents/Author")">New</MudButton>
+
+    </div>
+
+    <MudTable Items="Authors" Hover="true" Breakpoint="Breakpoint.Sm" >
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Date Of Birth</MudTh>
+            <MudTh>EMail</MudTh>
+            <MudTd></MudTd>
+            <MudTd></MudTd>
+
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.Name</MudTd>
+            <MudTd DataLabel="Sign">@context.DOB</MudTd>
+            <MudTd DataLabel="Name">@context.Email</MudTd>
+            <MudTd>
+                <MudButton ButtonType="@ButtonType.Button"
+                           Variant="Variant.Outlined"
+                           Color="Color.Primary"
+                           Link="@($"/AuthorComponents/Author/{context.Id}")">Edit</MudButton>
+            </MudTd>
+            <MudTd Style="width:220px">
+                <MudButton ButtonType="@ButtonType.Button"
+                           Variant="Variant.Outlined"
+                           Color="Color.Error"
+                           OnClick="()=>HandleDeleteAsync(context.Id)">Delete</MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+
+}
